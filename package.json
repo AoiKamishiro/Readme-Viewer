@@ -1,0 +1,12 @@
+{
+  "name": "online.kamishiro.readmeinspector",
+  "author": "Kamishiro Technologies",
+  "version": "1.1.0",
+  "displayName": "Readme Inspector",
+  "description": "This is an asset that displays the Readme on the Unity inspector.",
+  "unity": "2019.4",
+  "dependencies": {
+    "com.unity.editorcoroutines": "1.0.0",
+    "com.unity.nuget.newtonsoft-json": "2.0.2"
+  }
+}
