@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace online.kamishiro.readmeinspector
+namespace online.kamishiro.readmeviewer
 {
     public class ReadmeAssetEditorWindow : EditorWindow
     {
@@ -10,7 +10,7 @@ namespace online.kamishiro.readmeinspector
         public static void OpenEditor(ReadmeAsset readmeAsset)
         {
             target = readmeAsset;
-            _ = GetWindow<ReadmeAssetEditorWindow>("ReadmeAssetEditor");
+            _ = GetWindow<ReadmeAssetEditorWindow>("ReadmeAsset Editor");
         }
 
         private void OnGUI()

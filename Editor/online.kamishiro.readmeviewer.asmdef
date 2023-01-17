@@ -1,7 +1,6 @@
 {
-    "name": "online.kamishiro.readmeinspector.editor",
+    "name": "online.kamishiro.readmeviewer",
     "references": [
-        "GUID:3e56b2a70b1cbc64abf1bc23dc933450",
         "GUID:478a2357cc57436488a56e564b08d223"
     ],
     "includePlatforms": [

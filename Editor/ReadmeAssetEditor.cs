@@ -8,7 +8,7 @@ using UnityEditor;
 using UnityEngine;
 using Math = System.Math;
 
-namespace online.kamishiro.readmeinspector
+namespace online.kamishiro.readmeviewer
 {
     [InitializeOnLoad]
     [CustomEditor(typeof(ReadmeAsset))]

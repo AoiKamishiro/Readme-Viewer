@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace online.kamishiro.readmeinspector
+namespace online.kamishiro.readmeviewer
 {
     [CreateAssetMenu(menuName = "Readme/ReadmeAsset", order = 100)]
     public class ReadmeAsset : ScriptableObject
