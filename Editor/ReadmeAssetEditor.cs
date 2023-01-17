@@ -24,57 +24,95 @@ namespace online.kamishiro.readmeinspector
 
         private static GUIStyle m_LinkStyle;
         private static GUIStyle m_TitleStyle;
-        private static GUIStyle m_HeadingStyle;
-        private static GUIStyle m_BodyStyle;
-        private static GUIStyle m_SubTitleStyle;
+        private static GUIStyle m_ChapterTitleStyle;
+        private static GUIStyle m_ChapterTextStyle;
+        private static GUIStyle m_SectionTitleStyle;
         private static GUIStyle m_LineStyle;
 
-        private static GUIStyle LinkStyle
-        {
-            get
-            {
-                if (m_LinkStyle == null) { InitializeStyes(); }
-                return m_LinkStyle;
-            }
-        }
         private static GUIStyle TitleStyle
         {
             get
             {
-                if (m_TitleStyle == null) { InitializeStyes(); }
+                if (m_TitleStyle == null)
+                {
+                    m_TitleStyle = new GUIStyle(m_ChapterTextStyle)
+                    {
+                        fontSize = 26
+                    };
+                }
                 return m_TitleStyle;
             }
         }
-        private static GUIStyle HeadingStyle
+        private static GUIStyle ChapterTitleStyle
         {
             get
             {
-                if (m_HeadingStyle == null) { InitializeStyes(); }
-                return m_HeadingStyle;
+                if (m_ChapterTitleStyle == null)
+                {
+                    m_ChapterTitleStyle = new GUIStyle(m_ChapterTextStyle)
+                    {
+                        fontSize = 22,
+                        fontStyle = FontStyle.Bold
+                    };
+                }
+                return m_ChapterTitleStyle;
             }
         }
-        private static GUIStyle BodyStyle
+        private static GUIStyle ChapterTextStyle
         {
             get
             {
-                if (m_BodyStyle == null) { InitializeStyes(); }
-                return m_BodyStyle;
+                if (m_ChapterTextStyle == null)
+                {
+                    m_ChapterTitleStyle = new GUIStyle(m_ChapterTextStyle)
+                    {
+                        fontSize = 22,
+                        fontStyle = FontStyle.Bold
+                    };
+                }
+                return m_ChapterTextStyle;
             }
         }
-        private static GUIStyle SubTitleStyle
+        private static GUIStyle SectionTitleStyle
         {
             get
             {
-                if (m_SubTitleStyle == null) { InitializeStyes(); }
-                return m_SubTitleStyle;
+                if (m_SectionTitleStyle == null)
+                {
+                    m_SectionTitleStyle = new GUIStyle(m_ChapterTextStyle)
+                    {
+                        fontSize = 18,
+                        fontStyle = FontStyle.Bold
+                    };
+                }
+                return m_SectionTitleStyle;
             }
         }
         private static GUIStyle LineStyle
         {
             get
             {
-                if (m_LineStyle == null) { InitializeStyes(); }
+                if (m_LineStyle == null)
+                {
+                    m_LineStyle = new GUIStyle(m_ChapterTextStyle)
+                    {
+                        fontSize = 14
+                    };
+                }
                 return m_LineStyle;
+            }
+        }
+        private static GUIStyle LinkStyle
+        {
+            get
+            {
+                if (m_LinkStyle == null)
+                {
+                    m_LinkStyle = new GUIStyle(m_LineStyle);
+                    m_LinkStyle.normal.textColor = new Color(0x00 / 255f, 0x78 / 255f, 0xDA / 255f, 1f);
+                    m_LinkStyle.stretchWidth = false;
+                }
+                return m_LinkStyle;
             }
         }
         #endregion
@@ -110,8 +148,6 @@ namespace online.kamishiro.readmeinspector
         /// </summary>
         protected override void OnHeaderGUI()
         {
-            InitializeStyes();
-
             ReadmeAsset readme = (ReadmeAsset)target;
 
             float iconWidth = Mathf.Min(EditorGUIUtility.currentViewWidth / 3f - 20f, readme.iconMaxWidth);
@@ -147,10 +183,10 @@ namespace online.kamishiro.readmeinspector
                 GUILayout.Space(kSpace / 2);
 
                 //章の表題を表示
-                if (!string.IsNullOrEmpty(chaoter.chapterTitle)) GUILayout.Label(chaoter.chapterTitle, HeadingStyle);
+                if (!string.IsNullOrEmpty(chaoter.chapterTitle)) GUILayout.Label(chaoter.chapterTitle, ChapterTitleStyle);
 
                 //章の本文を表示
-                if (!string.IsNullOrEmpty(chaoter.chapterText)) GUILayout.Label(chaoter.chapterText, BodyStyle);
+                if (!string.IsNullOrEmpty(chaoter.chapterText)) GUILayout.Label(chaoter.chapterText, ChapterTextStyle);
 
                 //節が存在しない場合、そこで現在の章を終了
                 if (chaoter.sections == null || chaoter.sections.Length == 0) continue;
@@ -161,7 +197,7 @@ namespace online.kamishiro.readmeinspector
                     GUILayout.Space(kSpace / 4);
 
                     //節の表題を表示
-                    if (!string.IsNullOrEmpty(section.sectionTitle)) GUILayout.Label(section.sectionTitle, SubTitleStyle);
+                    if (!string.IsNullOrEmpty(section.sectionTitle)) GUILayout.Label(section.sectionTitle, SectionTitleStyle);
 
                     //文が存在しない場合、そこで現在の節を終了
                     if (section.sentences == null || section.sentences.Length == 0) continue;
@@ -187,40 +223,6 @@ namespace online.kamishiro.readmeinspector
                 }
                 GUILayout.Space(kSpace);
             }
-        }
-
-        /// <summary>
-        /// 文章の様式設定を初期化します
-        /// </summary>
-        private static void InitializeStyes()
-        {
-            m_BodyStyle = new GUIStyle(EditorStyles.label)
-            {
-                wordWrap = true,
-                fontSize = 16,
-            };
-            m_TitleStyle = new GUIStyle(m_BodyStyle)
-            {
-                fontSize = 26
-            };
-            m_HeadingStyle = new GUIStyle(m_BodyStyle)
-            {
-                fontSize = 22,
-                fontStyle = FontStyle.Bold
-            };
-            m_SubTitleStyle = new GUIStyle(m_BodyStyle)
-            {
-                fontSize = 18,
-                fontStyle = FontStyle.Bold
-            };
-            m_LineStyle = new GUIStyle(m_BodyStyle)
-            {
-                fontSize = 14
-            };
-
-            m_LinkStyle = new GUIStyle(m_LineStyle);
-            m_LinkStyle.normal.textColor = new Color(0x00 / 255f, 0x78 / 255f, 0xDA / 255f, 1f);
-            m_LinkStyle.stretchWidth = false;
         }
 
         /// <summary>
