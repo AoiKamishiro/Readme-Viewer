@@ -1,4 +1,7 @@
-# ReadMe Inspector  
-  
+# ReadMe Viewer  
+
+## 概要  
 Unityのインスペクター上でReadmeを表示するアセットです。  
-This is an asset that displays the Readme on the Unity inspector.  
+
+## 利用方法
+今後追記します。
