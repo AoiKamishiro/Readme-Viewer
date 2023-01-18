@@ -10,7 +10,7 @@ namespace online.kamishiro.readmeviewer
     [CreateAssetMenu(menuName = "Readme/ReadmeAsset", order = 100)]
     public class ReadmeAsset : ScriptableObject
     {
-        private string iconGUID;
+        public string iconGUID;
         [NonSerialized]
         private Texture2D _cachedIcon;
         public Texture2D Icon
