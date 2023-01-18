@@ -109,7 +109,7 @@ namespace online.kamishiro.readmeviewer
                 if (m_LinkStyle == null)
                 {
                     m_LinkStyle = new GUIStyle(LineStyle);
-                    m_LinkStyle.normal.textColor = new Color(0x00 / 0xFF, 0x78 / 0xFF, 0xDA / 0xFF, 0x01);
+                    m_LinkStyle.normal.textColor = new Color(0x4F / 0xFF, 0x80 / 0xFF, 0xF8 / 0xFF, 0x01);
                     m_LinkStyle.stretchWidth = false;
                 }
                 return m_LinkStyle;
