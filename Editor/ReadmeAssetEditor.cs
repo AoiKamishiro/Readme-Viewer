@@ -51,7 +51,7 @@ namespace online.kamishiro.readmeviewer
                 {
                     m_ChapterTitleStyle = new GUIStyle(ChapterTextStyle)
                     {
-                        fontSize = 22,
+                        fontSize = 16,
                         fontStyle = FontStyle.Bold
                     };
                 }
@@ -81,7 +81,7 @@ namespace online.kamishiro.readmeviewer
                 {
                     m_SectionTitleStyle = new GUIStyle(ChapterTextStyle)
                     {
-                        fontSize = 18,
+                        fontSize = 14,
                         fontStyle = FontStyle.Bold
                     };
                 }
