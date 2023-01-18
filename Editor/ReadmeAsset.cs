@@ -10,7 +10,6 @@ namespace online.kamishiro.readmeviewer
     [CreateAssetMenu(menuName = "Readme/ReadmeAsset", order = 100)]
     public class ReadmeAsset : ScriptableObject
     {
-        public string iconGUID;
         [NonSerialized]
         private Texture2D _cachedIcon;
         public Texture2D Icon
@@ -29,10 +28,12 @@ namespace online.kamishiro.readmeviewer
                 _cachedIcon = null;
             }
         }
+        public string iconGUID;
         public float iconMaxWidth = 64f;
         public string title;
         public Chapter[] chapters;
         public bool isLoaded;
+        public bool showEditButton;
 
         public int ChapterCount
         {

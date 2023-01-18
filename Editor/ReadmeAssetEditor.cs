@@ -19,7 +19,7 @@ namespace online.kamishiro.readmeviewer
         private Rect LabelRect;
         private Rect ButtonRect;
 
-        private static readonly float kSpace = 16f;
+        private static readonly float space = 16f;
         private static readonly int tab = 8;
 
         private static GUIStyle m_LinkStyle;
@@ -160,8 +160,15 @@ namespace online.kamishiro.readmeviewer
                 GUILayout.Label(readme.title, TitleStyle);
                 LabelRect = GUILayoutUtility.GetLastRect();
 
-                ButtonRect = new Rect(EditorGUIUtility.currentViewWidth - 52 - 10, Math.Max(IconRect.y + IconRect.height, LabelRect.y + LabelRect.height) - 16, 52, 16);
-                if (GUI.Button(ButtonRect, new GUIContent("Edit"), EditorStyles.miniButton)) ReadmeAssetEditorWindow.OpenEditor(readme);
+                if (readme.showEditButton)
+                {
+                    ButtonRect = new Rect(
+                        EditorGUIUtility.currentViewWidth - 52 - 10,
+                        Math.Max(IconRect.y + IconRect.height, LabelRect.y + LabelRect.height) - 16,
+                        52,
+                        16);
+                    if (GUI.Button(ButtonRect, new GUIContent("Edit"), EditorStyles.miniButton)) ReadmeAssetEditorWindow.OpenEditor(readme);
+                }
             }
             GUILayout.EndHorizontal();
         }
@@ -173,32 +180,32 @@ namespace online.kamishiro.readmeviewer
         {
             ReadmeAsset readme = (ReadmeAsset)target;
 
-            GUILayout.Space(kSpace / 2);
+            GUILayout.Space(space / 2);
 
             //章が存在しない場合、そこで終了
             if (readme.chapters == null || readme.chapters.Length == 0) return;
 
             //章の反復処理
-            foreach (ReadmeAsset.Chapter chaoter in readme.chapters)
+            foreach (ReadmeAsset.Chapter chapter in readme.chapters)
             {
-                GUILayout.Space(kSpace / 2);
+                GUILayout.Space(space / 2);
 
                 //章の表題を表示
-                if (!string.IsNullOrEmpty(chaoter.chapterTitle)) GUILayout.Label(chaoter.chapterTitle, ChapterTitleStyle);
+                if (!string.IsNullOrEmpty(chapter.chapterTitle)) Label(chapter.chapterTitle, ChapterTitleStyle);
 
                 //章の本文を表示
-                if (!string.IsNullOrEmpty(chaoter.chapterText)) GUILayout.Label(chaoter.chapterText, ChapterTextStyle);
+                if (!string.IsNullOrEmpty(chapter.chapterText)) Label(chapter.chapterText, ChapterTextStyle);
 
                 //節が存在しない場合、そこで現在の章を終了
-                if (chaoter.sections == null || chaoter.sections.Length == 0) continue;
+                if (chapter.sections == null || chapter.sections.Length == 0) continue;
 
                 //節の反復処理
-                foreach (ReadmeAsset.Section section in chaoter.sections)
+                foreach (ReadmeAsset.Section section in chapter.sections)
                 {
-                    GUILayout.Space(kSpace / 4);
+                    GUILayout.Space(space / 4);
 
                     //節の表題を表示
-                    if (!string.IsNullOrEmpty(section.sectionTitle)) GUILayout.Label(section.sectionTitle, SectionTitleStyle);
+                    if (!string.IsNullOrEmpty(section.sectionTitle)) Label(section.sectionTitle, SectionTitleStyle);
 
                     //文が存在しない場合、そこで現在の節を終了
                     if (section.sentences == null || section.sentences.Length == 0) continue;
@@ -209,42 +216,52 @@ namespace online.kamishiro.readmeviewer
                         //文が空行の場合、そこで現在の文を終了
                         if (string.IsNullOrEmpty(line.text)) continue;
 
-                        GUILayout.BeginHorizontal();
+                        using (new GUILayout.HorizontalScope())
+                        {
+                            //指定された文字数の字下げを行う
+                            GUILayout.Space(line.indent * tab);
 
-                        //指定された文字数の字下げを行う
-                        GUILayout.Space(line.indent * tab);
-
-                        //文が参照文であれば、参照先を開けるように表示
-                        if (line.isLink) LinkLabel(line.url, new GUIContent(line.text));
-                        //そうでなければ単純に文を表示
-                        else GUILayout.Label(line.text, LineStyle);
-
-                        GUILayout.EndHorizontal();
+                            //文が参照文であれば、参照先を開けるように表示
+                            if (line.isLink) LinkLabel(line.text, line.url, LinkStyle);
+                            //そうでなければ単純に文を表示
+                            else Label(line.text, LineStyle);
+                        }
                     }
                 }
-                GUILayout.Space(kSpace);
+                GUILayout.Space(space);
             }
         }
-
+        /// <summary>
+        /// 文の表示の処理を行います。
+        /// </summary>
+        /// <param name="text">表示文</param>
+        /// <param name="style">参照先</param>
+        /// <param name="options">書式</param>
+        private static void Label(string text, GUIStyle style, params GUILayoutOption[] options)
+        {
+            GUILayout.Label(text, style, options);
+        }
         /// <summary>
         /// 参照文の表示と、参照先を開く処理を行います。
         /// </summary>
+        /// <param name="text">表示文</param>
         /// <param name="url">参照先</param>
-        /// <param name="label">表示内容</param>
-        /// <param name="options"></param>
-        private static void LinkLabel(string url, GUIContent label, params GUILayoutOption[] options)
+        /// <param name="style">書式</param>
+        /// <param name="options">オプション</param>
+        private static void LinkLabel(string text, string url, GUIStyle style, params GUILayoutOption[] options)
         {
-            Rect position = GUILayoutUtility.GetRect(label, LinkStyle, options);
+            GUIContent label = new GUIContent(text);
+            Rect position = GUILayoutUtility.GetRect(label, style, options);
 
             Handles.BeginGUI();
-            Handles.color = LinkStyle.normal.textColor;
+            Handles.color = style.normal.textColor;
             Handles.DrawLine(new Vector3(position.xMin, position.yMax), new Vector3(position.xMax, position.yMax));
             Handles.color = Color.white;
             Handles.EndGUI();
 
             EditorGUIUtility.AddCursorRect(position, MouseCursor.Link);
 
-            if (GUI.Button(position, label, LinkStyle)) Application.OpenURL(url);
+            if (GUI.Button(position, label, style)) Application.OpenURL(url);
         }
 
         /// <summary>
