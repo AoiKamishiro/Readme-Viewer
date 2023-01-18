@@ -35,7 +35,7 @@ namespace online.kamishiro.readmeviewer
             {
                 if (m_TitleStyle == null)
                 {
-                    m_TitleStyle = new GUIStyle(m_ChapterTextStyle)
+                    m_TitleStyle = new GUIStyle(ChapterTextStyle)
                     {
                         fontSize = 26
                     };
@@ -49,7 +49,7 @@ namespace online.kamishiro.readmeviewer
             {
                 if (m_ChapterTitleStyle == null)
                 {
-                    m_ChapterTitleStyle = new GUIStyle(m_ChapterTextStyle)
+                    m_ChapterTitleStyle = new GUIStyle(ChapterTextStyle)
                     {
                         fontSize = 22,
                         fontStyle = FontStyle.Bold
@@ -79,7 +79,7 @@ namespace online.kamishiro.readmeviewer
             {
                 if (m_SectionTitleStyle == null)
                 {
-                    m_SectionTitleStyle = new GUIStyle(m_ChapterTextStyle)
+                    m_SectionTitleStyle = new GUIStyle(ChapterTextStyle)
                     {
                         fontSize = 18,
                         fontStyle = FontStyle.Bold
@@ -94,7 +94,7 @@ namespace online.kamishiro.readmeviewer
             {
                 if (m_LineStyle == null)
                 {
-                    m_LineStyle = new GUIStyle(m_ChapterTextStyle)
+                    m_LineStyle = new GUIStyle(ChapterTextStyle)
                     {
                         fontSize = 14
                     };
@@ -108,8 +108,8 @@ namespace online.kamishiro.readmeviewer
             {
                 if (m_LinkStyle == null)
                 {
-                    m_LinkStyle = new GUIStyle(m_LineStyle);
-                    m_LinkStyle.normal.textColor = new Color(0x00 / 255f, 0x78 / 255f, 0xDA / 255f, 1f);
+                    m_LinkStyle = new GUIStyle(LineStyle);
+                    m_LinkStyle.normal.textColor = new Color(0x00 / 0xFF, 0x78 / 0xFF, 0xDA / 0xFF, 0x01);
                     m_LinkStyle.stretchWidth = false;
                 }
                 return m_LinkStyle;
