@@ -64,10 +64,10 @@ namespace online.kamishiro.readmeviewer
             {
                 if (m_ChapterTextStyle == null)
                 {
-                    m_ChapterTitleStyle = new GUIStyle(m_ChapterTextStyle)
+                    m_ChapterTextStyle = new GUIStyle(EditorStyles.label)
                     {
-                        fontSize = 22,
-                        fontStyle = FontStyle.Bold
+                        wordWrap = true,
+                        fontSize = 16,
                     };
                 }
                 return m_ChapterTextStyle;
