@@ -108,8 +108,9 @@ namespace online.kamishiro.readmeviewer
             {
                 if (m_LinkStyle == null)
                 {
+                    ColorUtility.TryParseHtmlString("#4F80F8", out Color color);
                     m_LinkStyle = new GUIStyle(LineStyle);
-                    m_LinkStyle.normal.textColor = new Color(0x4F / 0xFF, 0x80 / 0xFF, 0xF8 / 0xFF, 0x01);
+                    m_LinkStyle.normal.textColor = color; ;
                     m_LinkStyle.stretchWidth = false;
                 }
                 return m_LinkStyle;
