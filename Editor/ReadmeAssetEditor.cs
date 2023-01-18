@@ -155,7 +155,7 @@ namespace online.kamishiro.readmeviewer
 
             GUILayout.BeginHorizontal("In BigTitle");
             {
-                GUILayout.Label(readme.icon, GUILayout.Width(iconWidth), GUILayout.Height(iconWidth));
+                GUILayout.Label(readme.Icon, GUILayout.Width(iconWidth), GUILayout.Height(iconWidth));
                 IconRect = GUILayoutUtility.GetLastRect();
                 GUILayout.Label(readme.title, TitleStyle);
                 LabelRect = GUILayoutUtility.GetLastRect();

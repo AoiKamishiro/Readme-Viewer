@@ -22,7 +22,7 @@ namespace online.kamishiro.readmeviewer
             EditorGUILayout.LabelField("Readme ファイルの編集", EditorStyles.boldLabel);
             EditorGUILayout.Space();
             target.title = EditorGUILayout.TextField("タイトル", target.title);
-            target.icon = (Texture2D)EditorGUILayout.ObjectField("アイコン", target.icon, typeof(Texture2D), false);
+            target.Icon = (Texture2D)EditorGUILayout.ObjectField("アイコン", target.Icon, typeof(Texture2D), false);
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
             target.ChapterCount = EditorGUILayout.DelayedIntField("チャプター数", target.ChapterCount);

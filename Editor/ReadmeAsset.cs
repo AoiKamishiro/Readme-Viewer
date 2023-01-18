@@ -2,6 +2,7 @@
 //Modified by AoiKamishiro
 
 using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace online.kamishiro.readmeviewer
@@ -9,7 +10,25 @@ namespace online.kamishiro.readmeviewer
     [CreateAssetMenu(menuName = "Readme/ReadmeAsset", order = 100)]
     public class ReadmeAsset : ScriptableObject
     {
-        public Texture2D icon;
+        private string iconGUID;
+        [NonSerialized]
+        private Texture2D _cachedIcon;
+        public Texture2D Icon
+        {
+            get
+            {
+                if (_cachedIcon == null)
+                {
+                    _cachedIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(iconGUID));
+                }
+                return _cachedIcon;
+            }
+            set
+            {
+                iconGUID = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(value));
+                _cachedIcon = null;
+            }
+        }
         public float iconMaxWidth = 64f;
         public string title;
         public Chapter[] chapters;
