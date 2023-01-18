@@ -1,7 +1,7 @@
 {
   "name": "online.kamishiro.readmeviewer",
   "author": "Kamishiro Technologies",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "displayName": "Readme Viewer",
   "description": "This is an asset that displays the Readme on the Unity inspector.",
   "unity": "2019.4",
